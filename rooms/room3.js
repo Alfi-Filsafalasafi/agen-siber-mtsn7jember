@@ -104,7 +104,7 @@ window.RoomModules = window.RoomModules || {};
       stimulus: 'Nama siswa adalah Dimas, lahir tahun 2012. Ia menggunakan sandi “Dimas2012”.',
       question: 'Apa risiko utamanya?',
       options: [
-        'Sandi terlalu acak',
+        'Sandi terlalu acak sehingga sulit untuk diingat',
         'Sandi menggunakan informasi pribadi yang mudah diketahui',
         'Sandi tidak memiliki nama',
         'Sandi tidak memiliki angka'
@@ -117,7 +117,7 @@ window.RoomModules = window.RoomModules || {};
       stimulus: 'Dari beberapa pilihan, siswa harus memilih karakteristik sandi yang lebih kuat.',
       question: 'Pilihan yang paling tepat adalah ...',
       options: [
-        'Menggunakan nama dan tanggal lahir',
+        'Menggunakan nama dan tanggal lahir sehingga mudah untuk diingat',
         'Menggunakan kombinasi karakter dan tidak memakai informasi pribadi yang mudah ditebak',
         'Menggunakan 12345678',
         'Menggunakan kata “password”'
@@ -153,7 +153,7 @@ window.RoomModules = window.RoomModules || {};
       question: 'Tindakan yang paling tepat adalah ...',
       options: [
         'Mengganti menjadi “Rina2013”',
-        'Menambahkan tanggal lahir lengkap',
+        'Menambahkan tanggal lahir lengkap sehingga password mudah diingat',
         'Membuat sandi baru yang tidak memakai informasi pribadi dan menggunakan kombinasi karakter yang lebih sulit ditebak',
         'Membagikannya kepada teman untuk diperiksa'
       ],
@@ -167,7 +167,7 @@ window.RoomModules = window.RoomModules || {};
       options: [
         'Kirim karena teman dapat dipercaya',
         'Jangan membagikan password; gunakan cara lain untuk meminta bantuan',
-        'Kirim setelah mengganti nama akun',
+        'Kirim setelah mengganti nama akun dan password',
         'Kirim ke grup agar ada saksi'
       ],
       key: 1, tags: ['PERCAYA_TEMAN', null, 'SHARE_PASSWORD', 'SHARE_PUBLIK'],
@@ -175,43 +175,46 @@ window.RoomModules = window.RoomModules || {};
       hint: 'Kredensial tidak menjadi aman hanya karena orang yang meminta adalah teman.' },
 
     { id: 'R3-08',
-      stimulus: 'Siswa login ke akun belajar menggunakan komputer umum di perpustakaan.',
-      question: 'Setelah selesai, tindakan yang paling aman adalah ...',
-      options: [
-        'Membiarkan akun tetap login',
-        'Logout dan memastikan data/kredensial tidak tersimpan untuk pengguna berikutnya',
-        'Menulis password di komputer',
-        'Menutup monitor tanpa logout'
-      ],
-      key: 1, tags: ['LUPA_LOGOUT', null, 'TULIS_PASSWORD_PERANGKAT', 'LUPA_LOGOUT'],
-      explanation: 'Logout dan memastikan kredensial tidak tersimpan membantu mencegah orang berikutnya mengakses akun.',
-      hint: 'Pikirkan apa yang dapat dilakukan pengguna berikutnya jika akun masih terbuka.' },
+  stimulus: 'Siswa login ke akun belajar menggunakan komputer umum di perpustakaan.',
+  question: 'Setelah selesai, tindakan yang paling aman adalah ...',
+  options: [
+    'Membiarkan akun tetap login',
+    'Logout dan menghapus data login',
+    'Menulis password di komputer',
+    'Menutup monitor tanpa logout'
+  ],
+  key: 1, tags: ['LUPA_LOGOUT', null, 'TULIS_PASSWORD_PERANGKAT', 'LUPA_LOGOUT'],
+  explanation: 'Logout dan memastikan kredensial tidak tersimpan membantu mencegah orang berikutnya mengakses akun.',
+  hint: 'Pikirkan apa yang dapat dilakukan pengguna berikutnya jika akun masih terbuka.'
+},
 
-    { id: 'R3-09',
-      stimulus: 'Siswa menggunakan satu password yang sama untuk email, akun belajar, dan media sosial. Password tersebut kemudian diketahui orang lain.',
-      question: 'Apa risiko utama dari kebiasaan tersebut?',
-      options: [
-        'Hanya satu akun yang terpengaruh',
-        'Banyak akun dapat ikut berisiko karena menggunakan kredensial yang sama',
-        'Semua akun otomatis menjadi lebih aman',
-        'Tidak ada risiko jika username berbeda'
-      ],
-      key: 1, tags: ['ABAIKAN_REUSE', null, 'SALAH_REUSE_AMAN', 'ABAIKAN_REUSE'],
-      explanation: 'Penggunaan password yang sama pada banyak akun membuat kompromi satu password dapat berdampak pada beberapa akun.',
-      hint: 'Hubungkan satu password yang sama dengan beberapa akun.' },
+{ id: 'R3-09',
+  stimulus: 'Siswa menggunakan satu password yang sama untuk email, akun belajar, dan media sosial. Password tersebut kemudian diketahui orang lain.',
+  question: 'Apa risiko utama dari kebiasaan tersebut?',
+  options: [
+    'Hanya satu akun yang terpengaruh',
+    'Beberapa akun ikut berisiko',
+    'Semua akun menjadi lebih aman',
+    'Tidak ada risiko jika username berbeda'
+  ],
+  key: 1, tags: ['ABAIKAN_REUSE', null, 'SALAH_REUSE_AMAN', 'ABAIKAN_REUSE'],
+  explanation: 'Penggunaan password yang sama pada banyak akun membuat kompromi satu password dapat berdampak pada beberapa akun.',
+  hint: 'Hubungkan satu password yang sama dengan beberapa akun.'
+},
 
-    { id: 'R3-10',
-      stimulus: 'Sebuah link login dikirim melalui pesan. Alamat situs terlihat berbeda dari layanan yang biasa digunakan dan meminta username serta password.',
-      question: 'Apa tindakan paling aman?',
-      options: [
-        'Memasukkan password untuk menguji',
-        'Mengabaikan link dan membuka layanan melalui alamat/aplikasi resmi yang diketahui',
-        'Mengirim link kepada teman untuk dicoba',
-        'Memasukkan password lalu segera menggantinya'
-      ],
-      key: 1, tags: ['COBA_DI_PHISHING', null, 'SEBAR_LINK', 'COBA_LALU_GANTI'],
-      explanation: 'Link mencurigakan sebaiknya tidak digunakan untuk login. Akses layanan melalui jalur resmi yang diketahui.',
-      hint: 'Jangan memasukkan kredensial pada halaman yang alamatnya mencurigakan.' }
+{ id: 'R3-10',
+  stimulus: 'Sebuah link login dikirim melalui pesan. Alamat situs terlihat berbeda dari layanan yang biasa digunakan dan meminta username serta password.',
+  question: 'Apa tindakan paling aman?',
+  options: [
+    'Memasukkan password untuk menguji',
+    'Membuka layanan dari alamat resmi',
+    'Mengirim link kepada teman untuk dicoba',
+    'Mengganti password setelah login'
+  ],
+  key: 1, tags: ['COBA_DI_PHISHING', null, 'SEBAR_LINK', 'COBA_LALU_GANTI'],
+  explanation: 'Link mencurigakan sebaiknya tidak digunakan untuk login. Akses layanan melalui jalur resmi yang diketahui.',
+  hint: 'Jangan memasukkan kredensial pada halaman yang alamatnya mencurigakan.'
+}
   ];
 
   // Ilustrasi tiap kasus (semua fiktif)

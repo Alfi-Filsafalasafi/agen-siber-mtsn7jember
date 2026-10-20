@@ -14,10 +14,10 @@ window.RoomModules = window.RoomModules || {};
       data: 'Nama lengkap', context: 'Daftar peserta kegiatan sekolah yang hanya dibagikan kepada panitia.',
       stimulus: '', question: 'Bagaimana keputusan yang paling tepat?',
       options: [
-        'Selalu rahasia dan tidak boleh dibagikan kepada siapa pun',
+        'Selalu rahasia dan tidak boleh dibagikan kepada siapa pun walau dipaksa memberikan',
         'Dapat dibagikan kepada pihak yang memang membutuhkan untuk tujuan kegiatan',
         'Harus dipublikasikan ke media sosial',
-        'Harus disertai password'
+        'Harus disertai informasi lain seperti alamat, tanggal lahir, jenis kelamin, dan alamat'
       ],
       key: 1, tags: ['TOLAK_MUTLAK', null, 'BAGI_PUBLIK', 'BAGI_KREDENSIAL'],
       explanation: 'Nama lengkap dapat digunakan dalam konteks kegiatan jika penerima dan tujuannya jelas, tetapi tidak berarti harus dipublikasikan secara luas.',
@@ -29,7 +29,7 @@ window.RoomModules = window.RoomModules || {};
       options: [
         'Membagikannya kepada siapa saja',
         'Melindunginya dan hanya memberikannya ketika ada kebutuhan yang sesuai',
-        'Menuliskannya di komentar publik',
+        'Menuliskannya di bio profile media sosial (instagram, tiktok, facebook, dll)',
         'Membagikannya bersama password'
       ],
       key: 1, tags: ['BAGI_PUBLIK', null, 'BAGI_PUBLIK', 'BAGI_KREDENSIAL'],
@@ -40,9 +40,9 @@ window.RoomModules = window.RoomModules || {};
       data: 'Foto makanan buatan sendiri', context: 'Untuk unggahan hobi.',
       stimulus: '', question: 'Klasifikasi yang paling tepat adalah ...',
       options: [
-        'Umumnya berisiko lebih rendah jika tidak memuat informasi sensitif',
+        'Umumnya aman jika tidak memuat informasi sensitif',
         'Password rahasia',
-        'Kredensial akun',
+        'Jangan dibagikan karena dapat menimbulkan kecemburuan sosial',
         'Data yang selalu dilarang dibagikan'
       ],
       key: 0, tags: [null, 'SALAH_KLASIFIKASI_RAHASIA', 'SALAH_KLASIFIKASI_RAHASIA', 'SEMUA_DILARANG'],
@@ -68,8 +68,8 @@ window.RoomModules = window.RoomModules || {};
       options: [
         'Publikasikan karena semua orang perlu tahu',
         'Lindungi dan hindari membagikannya secara terbuka tanpa kebutuhan yang jelas',
-        'Gabungkan dengan password lalu bagikan',
-        'Tulis di bio media sosial'
+        'Gabungkan dengan nama lengkap, nomor hp, patokan rumah dan link gmaps lalu bagikan',
+        'Menuliskannya di bio profile media sosial (instagram, tiktok, facebook, dll)'
       ],
       key: 1, tags: ['BAGI_PUBLIK', null, 'BAGI_KREDENSIAL', 'BAGI_PUBLIK'],
       explanation: 'Alamat rumah lengkap dapat meningkatkan risiko privasi sehingga perlu dibatasi penyebarannya.',

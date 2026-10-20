@@ -48,10 +48,10 @@ const PRETEST = [
     stimulus: 'Ketua kelas meminta nomor WhatsApp seluruh anggota untuk membuat grup kelas resmi.',
     question: 'Apa tindakan yang paling tepat?',
     options: [
-      'Membagikan semua nomor di media sosial agar mudah ditemukan',
-      'Memberikan nomor kepada ketua kelas melalui cara yang sesuai untuk tujuan tersebut',
-      'Mengirim nomor beserta password akun',
-      'Menolak semua permintaan nomor dalam keadaan apa pun'
+      'Membagikan semua nomor di media sosial agar mudah ditemukan oleh ketua kelas',
+      'Memberikan nomor kepada ketua kelas melalui cara yang sesuai',
+      'Mengirim nomor beserta password akun semua anggota kelas',
+      'Menolak semua permintaan nomor dalam keadaan apa pun walau dipaksa'
     ],
     key: 1, tags: ['BAGI_PUBLIK', null, 'BAGI_KREDENSIAL', 'TOLAK_MUTLAK'],
     explanation: 'Kelayakan berbagi data bergantung pada tujuan, penerima, kebutuhan, dan risiko. Nomor dapat diberikan melalui cara yang sesuai untuk keperluan grup kelas, tanpa membagikan data rahasia lain.',
@@ -61,7 +61,7 @@ const PRETEST = [
     stimulus: 'Perhatikan dua sandi berikut: (1) 12345678 dan (2) K3!pL9@zQ2.',
     question: 'Pernyataan yang paling tepat adalah ...',
     options: [
-      'Sandi (1) lebih kuat karena mudah diingat',
+      'Sandi (1) lebih kuat karena menggunakan kombinasi angka yang sederhana dan mudah diingat',
       'Sandi (2) lebih kuat karena menggunakan kombinasi karakter yang lebih sulit ditebak',
       'Keduanya sama kuat',
       'Sandi (1) lebih kuat karena hanya menggunakan angka'
@@ -75,9 +75,9 @@ const PRETEST = [
     question: 'Tindakan yang paling aman adalah ...',
     options: [
       'Memberikan password karena teman sendiri',
-      'Memberikan password hanya sekali',
-      'Tidak membagikan password dan menggunakan cara berbagi pekerjaan yang tidak memerlukan kredensial',
-      'Mengirim password melalui grup kelas'
+      'Memberikan password untuk sementara',
+      'Menolak memberikan password kepada teman',
+      'Mengirim password melalui pesan pribadi'
     ],
     key: 2, tags: ['PERCAYA_TEMAN', 'SHARE_SEKALI', null, 'SHARE_PUBLIK'],
     explanation: 'Password merupakan kredensial rahasia dan tidak seharusnya dibagikan. Bantuan dapat dilakukan tanpa memberikan akses akun.',
@@ -88,9 +88,9 @@ const PRETEST = [
     question: 'Apa tanda yang paling perlu membuat siswa memeriksa informasi tersebut?',
     options: [
       'Judul sensasional dan tidak ada sumber yang jelas',
-      'Postingan menggunakan huruf kapital',
+      'Postingan menggunakan huruf kapital dan informatif',
       'Postingan memiliki gambar',
-      'Postingan dibagikan oleh teman'
+      'Postingan dibagikan oleh sahabat dekat'
     ],
     key: 0, tags: [null, 'REDFLAG_KAPITAL_SAJA', 'REDFLAG_GAMBAR', 'PERCAYA_TEMAN'],
     explanation: 'Judul sensasional dan ketiadaan sumber yang dapat diverifikasi merupakan sinyal untuk melakukan pemeriksaan lebih lanjut.',
@@ -100,9 +100,9 @@ const PRETEST = [
     stimulus: 'Siswa menerima informasi bahwa besok sekolah libur dari sebuah akun media sosial yang tidak dikenal.',
     question: 'Langkah verifikasi yang paling tepat adalah ...',
     options: [
-      'Langsung menyebarkannya ke grup kelas',
+      'Langsung menyebarkannya ke story whatsApp dan grup kelas',
       'Mengecek sumber resmi sekolah atau pihak yang berwenang',
-      'Percaya karena banyak yang menyukai postingan',
+      'Percaya karena banyak yang menyukai postingan tersebut',
       'Menghapus semua pesan tentang informasi tersebut'
     ],
     key: 1, tags: ['SEBAR_TANPA_CEK', null, 'POPULARITAS_JADI_BUKTI', 'HAPUS_BUKAN_VERIFIKASI'],
@@ -112,7 +112,7 @@ const PRETEST = [
   { id: 'PT-09', level: 'C2',
     stimulus: 'Sebuah pesan berbunyi: "Akunmu akan ditutup! Klik link ini dan login sekarang untuk mengaktifkan kembali akun."',
     question: 'Ancaman yang paling mungkin ditunjukkan oleh pesan tersebut adalah ...',
-    options: ['Phishing', 'Backup data', 'Pembelajaran daring', 'Penyimpanan cloud'],
+    options: ['Phishing', 'Backup data', 'Cyberbullying', 'Serangan Hacker'],
     key: 0, tags: [null, 'SALAH_JENIS_ANCAMAN', 'SALAH_JENIS_ANCAMAN', 'SALAH_JENIS_ANCAMAN'],
     explanation: 'Pesan yang mencoba membuat pengguna memasukkan kredensial melalui tautan mencurigakan merupakan ciri phishing.',
     hint: 'Perhatikan apakah pesan mencoba mengambil kredensial melalui tautan.' },
@@ -121,9 +121,9 @@ const PRETEST = [
     stimulus: 'Kamu tidak sengaja mengeklik tautan yang mencurigakan, tetapi belum memasukkan username atau password.',
     question: 'Apa tindakan yang paling aman?',
     options: [
-      'Memasukkan password agar tahu halaman tersebut aman',
+      'Memasukkan password agar tahu halaman tersebut aman, dan melaporkan hasil kejadian',
       'Menutup halaman dan tidak memasukkan kredensial; jika perlu melaporkan kejadian',
-      'Mengirim tautan kepada teman untuk dicoba',
+      'Mengirim tautan kepada teman untuk dicoba, dan meminta mereka melaporkan kejadian',
       'Menyimpan halaman tersebut untuk dibuka lagi'
     ],
     key: 1, tags: ['KREDENSIAL_KE_PHISHING', null, 'SEBAR_LINK', 'SIMPAN_LINK'],
