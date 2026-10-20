@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard Guru - Agen Siber</title>
+<style>
+:root{--bg:#f5f7f6;--card:#fff;--ink:#17211d;--mut:#65746d;--line:#dfe6e2;--acc:#0f6b52;--ok:#d9f2e6;--okt:#0b5a3f;--bad:#fde4e1;--badt:#9a2a1f;--mid:#fff1d1;--midt:#7a5600}
+@media (prefers-color-scheme:dark){:root{--bg:#101614;--card:#18211e;--ink:#e6efe9;--mut:#93a39a;--line:#2a3833;--acc:#4fc3a1;--ok:#17402f;--okt:#8fe3bf;--bad:#4a201c;--badt:#ffb4aa;--mid:#47380f;--midt:#f2d48a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif}
+h1{font-size:1.35rem;margin:0}h2{font-size:1.05rem;margin:0 0 .6rem}
+.wrap{max-width:1240px;margin:0 auto;padding:16px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat b{display:block;font-size:1.6rem;line-height:1.2}.stat span{color:var(--mut);font-size:.85rem}
+input,select,button{font:inherit;padding:7px 10px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+button{cursor:pointer}button.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.tabs{display:flex;gap:6px;margin-bottom:10px}.tabs button[aria-selected=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.sc{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{color:var(--mut);font-weight:600;position:sticky;top:0;background:var(--card)}
+td.n,th.n{text-align:center}
+tr.row{cursor:pointer}tr.row:hover td{background:var(--bg)}
+.pill{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.8rem}
+.ok{background:var(--ok);color:var(--okt)}.bad{background:var(--bad);color:var(--badt)}.mid{background:var(--mid);color:var(--midt)}
+.prog{display:inline-block;width:70px;height:7px;background:var(--line);border-radius:4px;vertical-align:middle;margin-right:6px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--acc)}
+.mut{color:var(--mut)}
+#login{max-width:340px;margin:12vh auto}#login input{width:100%;margin:8px 0}
+#err{color:var(--badt);min-height:1.4em;font-size:.9rem}
+dialog{border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:min(960px,96vw);max-height:90vh;padding:16px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.hide{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section id="login" class="card">
+  <h1>Dashboard Guru</h1>
+  <p class="mut">Masukkan password admin.</p>
+  <input id="pw" type="password" placeholder="Password admin" autocomplete="current-password">
+  <button class="p" id="btnLogin" style="width:100%">Masuk</button>
+  <div id="err"></div>
+</section>
+
+<p id="boot" class="mut hide" style="text-align:center;margin-top:20vh">Memuat data...</p>
+
+<main id="app" class="hide">
+  <div class="bar">
+    <h1>Hasil Siswa - Agen Siber</h1>
+    <div class="tools">
+      <select id="fKelas" aria-label="Filter kelas"></select>
+      <button id="btnRef">Muat ulang</button>
+      <button id="btnOut">Keluar</button>
+    </div>
+  </div>
+
+  <section class="card"><h2 id="sumTitle">Ringkasan</h2><div class="grid" id="sum"></div></section>
+
+  <section class="card"><h2>Hasil per kelas</h2><div class="sc"><table id="tKelas"></table></div></section>
+
+  <section class="card">
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tabR" aria-selected="true">Rekap siswa</button>
+      <button role="tab" id="tabB" aria-selected="false">Belum mengerjakan <span id="cB"></span></button>
+    </div>
+    <div id="pR">
+      <div class="tools">
+        <input id="fCari" type="search" placeholder="Cari nama" aria-label="Cari nama">
+        <button id="btnCsv">Ekspor CSV</button>
+        <span class="mut" id="info" style="align-self:center"></span>
+      </div>
+      <div class="sc"><table id="tRekap"></table></div>
+      <p class="mut" style="font-size:.85rem">Klik baris siswa untuk melihat detail. Nilai akhir muncul setelah R1-R5 dan Post-Test selesai.</p>
+    </div>
+    <div id="pB" class="hide"><div class="sc"><table id="tBelum"></table></div></div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <div class="bar"><h2 id="dTitle" style="margin:0"></h2><button id="dClose">Tutup</button></div>
+  <div id="dBody"></div>
+</dialog>
+</div>
+
+<script>
+const API_URL = 'https://script.google.com/macros/s/AKfycbwNeu9FRND2KKpPaKAzDn3crFTY054uIj0xCyUBf3mAPiRsY16LiJ6pjKFO3TM1Pfj2/exec';
+const $ = s => document.querySelector(s);
+const KEYS = ['pre','r1','r2','r3','r4','r5','post'];
+const LBL = {pre:'PRE',r1:'R1',r2:'R2',r3:'R3',r4:'R4',r5:'R5',post:'POST'};
+const store = {
+  get: k => { try { return localStorage.getItem(k) || sessionStorage.getItem(k) || ''; } catch (e) { return ''; } },
+  set: (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} try { sessionStorage.setItem(k, v); } catch (e) {} },
+  del: k => { try { localStorage.removeItem(k); } catch (e) {} try { sessionStorage.removeItem(k); } catch (e) {} }
+};
+let PW = store.get('pw'), D = null;
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const f1 = v => v === null ? '-' : (Math.round(v * 10) / 10).toString().replace('.', ',');
+const f2 = v => v === null ? '-' : v.toFixed(2).replace('.', ',');
+const avg = a => { a = a.filter(v => v !== null); return a.length ? a.reduce((x, y) => x + y, 0) / a.length : null; };
+
+async function api(body) {
+  const r = await fetch(API_URL, { method: 'POST', body: JSON.stringify(body) });
+  return r.json();
+}
+
+function hitung(s) {
+  const st = D.settings, rm = ['r1','r2','r3','r4','r5'];
+  s.done = KEYS.filter(k => s[k] !== null).length;
+  s.ng = (s.pre !== null && s.post !== null && s.pre < 100) ? (s.post - s.pre) / (100 - s.pre) : null;
+  const lengkap = rm.every(k => s[k] !== null) && s.post !== null;
+  const bw = st.bobot_room + st.bobot_posttest;
+  s.nilai = lengkap ? (avg(rm.map(k => s[k])) * st.bobot_room + s.post * st.bobot_posttest) / bw : null;
+  s.status = s.n_log === 0 ? 'Belum mulai' : s.nilai === null ? 'Berjalan' : (s.nilai >= st.kktp ? 'Tuntas' : 'Belum tuntas');
+  s.progres = s.n_log === 0 ? '-' : (s.last_akt === 'room_complete' ? 'selesai ' : 'di ') + String(s.last_room || '-').toUpperCase();
+}
+const kat = v => v === null ? '-' : v >= 0.7 ? 'Tinggi' : v >= 0.3 ? 'Sedang' : 'Rendah';
+const katCls = v => v === null ? '' : v >= 0.7 ? 'ok' : v >= 0.3 ? 'mid' : 'bad';
+const scoreCell = v => v === null ? '<td class="n mut">-</td>'
+  : `<td class="n"><span class="pill ${v >= D.settings.kktp ? 'ok' : 'bad'}">${f1(v)}</span></td>`;
+const stCls = s => ({ 'Tuntas': 'ok', 'Belum tuntas': 'bad', 'Berjalan': 'mid' }[s] || '');
+
+function showLogin(msg) {
+  $('#boot').classList.add('hide'); $('#login').classList.remove('hide');
+  $('#err').textContent = msg || '';
+}
+
+async function login() {
+  PW = $('#pw').value || PW;
+  $('#err').textContent = 'Memuat...';
+  try {
+    const r = await api({ action: 'admin_data', password: PW });
+    if (!r.ok) { store.del('pw'); showLogin(r.message); return; }
+    store.set('pw', PW);
+    D = r; D.siswa.forEach(hitung);
+    $('#login').classList.add('hide'); $('#boot').classList.add('hide'); $('#app').classList.remove('hide');
+    const kl = [...new Set(D.siswa.map(s => s.kelas))];
+    const cur = $('#fKelas').value;
+    $('#fKelas').innerHTML = '<option value="">Semua kelas</option>' + kl.map(k => `<option>${k}</option>`).join('');
+    $('#fKelas').value = kl.includes(cur) ? cur : '';
+    render();
+  } catch (e) { showLogin('Gagal terhubung ke server. Cek koneksi, lalu coba lagi.'); }
+}
+
+function filtered() {
+  const k = $('#fKelas').value, q = $('#fCari').value.trim().toLowerCase();
+  return D.siswa.filter(s => (!k || s.kelas === k) && (!q || s.nama.toLowerCase().includes(q)));
+}
+
+function render() {
+  const k = $('#fKelas').value, base = D.siswa.filter(s => !k || s.kelas === k);
+  const mulai = base.filter(s => s.n_log > 0), tun = base.filter(s => s.status === 'Tuntas');
+  const sel = base.filter(s => s.nilai !== null);
+  $('#sumTitle').textContent = 'Ringkasan - ' + (k ? 'Kelas ' + k : 'Semua kelas');
+  const ng = avg(base.map(s => s.ng));
+  $('#sum').innerHTML = [
+    [`${mulai.length} / ${base.length}`, 'siswa sudah mulai'],
+    [f1(avg(base.map(s => s.pre))), 'rata-rata Pre-Test'],
+    [f1(avg(base.map(s => s.post))), 'rata-rata Post-Test'],
+    [f2(ng), 'rata-rata N-Gain (' + kat(ng) + ')'],
+    [f1(avg(sel.map(s => s.nilai))), 'rata-rata nilai akhir'],
+    [sel.length ? Math.round(tun.length / sel.length * 100) + '%' : '-', `tuntas KKTP ${D.settings.kktp} (dari ${sel.length} yang selesai)`]
+  ].map(x => `<div class="stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+
+  // per kelas
+  const kl = [...new Set(D.siswa.map(s => s.kelas))];
+  $('#tKelas').innerHTML = '<tr><th>Kelas</th><th class="n">Siswa</th><th class="n">Sudah mulai</th><th class="n">Belum mulai</th><th class="n">Pre</th><th class="n">Post</th><th class="n">N-Gain</th><th>Kategori</th><th class="n">Nilai akhir</th><th class="n">Tuntas</th></tr>' +
+    kl.map(c => {
+      const g = D.siswa.filter(s => s.kelas === c), n = avg(g.map(s => s.ng)), fin = g.filter(s => s.nilai !== null);
+      return `<tr><td><b>${c}</b></td><td class="n">${g.length}</td><td class="n">${g.filter(s => s.n_log > 0).length}</td><td class="n">${g.filter(s => s.n_log === 0).length}</td>
+      <td class="n">${f1(avg(g.map(s => s.pre)))}</td><td class="n">${f1(avg(g.map(s => s.post)))}</td><td class="n">${f2(n)}</td>
+      <td><span class="pill ${katCls(n)}">${kat(n)}</span></td><td class="n">${f1(avg(fin.map(s => s.nilai)))}</td>
+      <td class="n">${fin.length ? fin.filter(s => s.status === 'Tuntas').length + '/' + fin.length : '-'}</td></tr>`;
+    }).join('');
+
+  renderRekap();
+  const bl = base.filter(s => s.n_log === 0);
+  $('#cB').textContent = '(' + bl.length + ')';
+  $('#tBelum').innerHTML = bl.length
+    ? '<tr><th>Kelas</th><th class="n">Absen</th><th>Nama</th></tr>' + bl.map(s => `<tr><td>${s.kelas}</td><td class="n">${s.absen}</td><td>${esc(s.nama)}</td></tr>`).join('')
+    : '<tr><td class="mut">Semua siswa di filter ini sudah mengerjakan.</td></tr>';
+}
+
+function renderRekap() {
+  const rows = filtered();
+  $('#info').textContent = rows.length + ' siswa';
+  $('#tRekap').innerHTML = '<tr><th>Kelas</th><th class="n">Absen</th><th>Nama</th><th>Progres</th>' +
+    KEYS.map(k => `<th class="n">${LBL[k]}</th>`).join('') +
+    '<th class="n">Nilai akhir</th><th class="n">N-Gain</th><th>Status</th><th>Aktivitas terakhir</th></tr>' +
+    rows.map((s, i) => `<tr class="row" data-i="${D.siswa.indexOf(s)}"><td>${s.kelas}</td><td class="n">${s.absen}</td><td>${esc(s.nama)}</td>
+    <td><span class="prog"><i style="width:${s.done / 7 * 100}%"></i></span>${s.done}/7 <span class="mut">${s.progres}</span></td>` +
+    KEYS.map(k => scoreCell(s[k])).join('') +
+    `<td class="n"><b>${f1(s.nilai)}</b></td><td class="n">${f2(s.ng)}</td>
+    <td><span class="pill ${stCls(s.status)}">${s.status}</span></td><td class="mut">${esc(s.last_ts) || '-'}</td></tr>`).join('');
+}
+
+async function detail(s) {
+  $('#dTitle').textContent = `${s.nama} (${s.kelas} / absen ${s.absen})`;
+  $('#dBody').innerHTML = '<p class="mut">Memuat...</p>';
+  $('#dlg').showModal();
+  const skor = KEYS.map(k => `${LBL[k]}: <b>${f1(s[k])}</b>`).join(' &nbsp; ');
+  const head = `<p>${skor}</p><p>Nilai akhir: <b>${f1(s.nilai)}</b> &nbsp; N-Gain: <b>${f2(s.ng)}</b> (${kat(s.ng)}) &nbsp; Status: <span class="pill ${stCls(s.status)}">${s.status}</span></p>`;
+  try {
+    const r = await api({ action: 'admin_detail', password: PW, kelas: s.kelas, absen: s.absen });
+    if (!r.ok) { $('#dBody').innerHTML = head + `<p>${esc(r.message)}</p>`; return; }
+    const ev = r.events, jw = ev.filter(e => e.item_id !== '' && e.item_id !== null);
+    const isTrue = v => v === true || v === 1 || String(v).toLowerCase() === 'true' || String(v) === '1';
+    const benar = jw.filter(e => isTrue(e.benar)).length;
+    const hint = ev.reduce((a, e) => a + (Number(e.hint) > 0 ? 1 : 0), 0);
+    const tags = {}; ev.forEach(e => { if (e.error_tag) tags[e.error_tag] = (tags[e.error_tag] || 0) + 1; });
+    const tagTxt = Object.entries(tags).sort((a, b) => b[1] - a[1]).map(t => `${esc(t[0])} (${t[1]})`).join(', ') || '-';
+    $('#dBody').innerHTML = head +
+      `<p class="mut">Jawaban tercatat: ${jw.length}, benar: ${benar}. Pemakaian hint: ${hint}x. Jenis kesalahan: ${tagTxt}</p>
+      <div class="sc" style="max-height:48vh;overflow:auto"><table><tr><th>Waktu</th><th>Aktivitas</th><th>Room</th><th>Soal</th><th>Jawaban</th><th class="n">Benar</th><th class="n">Hint</th><th class="n">Attempt</th><th class="n">Durasi</th><th>Error</th></tr>` +
+      ev.slice().reverse().map(e => `<tr><td>${esc(e.timestamp)}</td><td>${esc(e.aktivitas)}</td><td>${esc(e.room)}</td><td>${esc(e.item_id)}</td><td>${esc(e.jawaban)}</td><td class="n">${esc(e.benar)}</td><td class="n">${esc(e.hint)}</td><td class="n">${esc(e.attempt)}</td><td class="n">${esc(e.durasi)}</td><td>${esc(e.error_tag)}</td></tr>`).join('') +
+      '</table></div>' + (ev.length ? '' : '<p class="mut">Belum ada aktivitas.</p>');
+  } catch (e) { $('#dBody').innerHTML = head + '<p>Gagal memuat detail.</p>'; }
+}
+
+function csv() {
+  const rows = filtered();
+  const h = ['kelas','absen','nama','progres', ...KEYS.map(k => LBL[k]), 'nilai_akhir','n_gain','status','aktivitas_terakhir'];
+  const q = v => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const out = [h.map(q).join(',')].concat(rows.map(s => [s.kelas, s.absen, s.nama, s.done + '/7', ...KEYS.map(k => s[k] ?? ''),
+    s.nilai === null ? '' : s.nilai.toFixed(1), s.ng === null ? '' : s.ng.toFixed(2), s.status, s.last_ts].map(q).join(',')));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\ufeff' + out.join('\n')], { type: 'text/csv;charset=utf-8' }));
+  a.download = 'rekap-agen-siber.csv'; a.click();
+}
+
+$('#btnLogin').onclick = login;
+$('#pw').onkeydown = e => { if (e.key === 'Enter') login(); };
+$('#btnRef').onclick = login;
+$('#btnOut').onclick = () => { store.del('pw'); location.reload(); };
+$('#fKelas').onchange = render;
+$('#fCari').oninput = renderRekap;
+$('#btnCsv').onclick = csv;
+$('#dClose').onclick = () => $('#dlg').close();
+$('#tRekap').onclick = e => { const tr = e.target.closest('tr.row'); if (tr) detail(D.siswa[tr.dataset.i]); };
+function tab(b) {
+  $('#tabR').setAttribute('aria-selected', !b); $('#tabB').setAttribute('aria-selected', b);
+  $('#pR').classList.toggle('hide', b); $('#pB').classList.toggle('hide', !b);
+}
+$('#tabR').onclick = () => tab(false); $('#tabB').onclick = () => tab(true);
+if (PW) { $('#login').classList.add('hide'); $('#boot').classList.remove('hide'); login(); }
+</script>
+</body>
+</html>
