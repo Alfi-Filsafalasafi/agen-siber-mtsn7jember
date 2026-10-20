@@ -174,46 +174,49 @@ window.RoomModules = window.RoomModules || {};
       explanation: 'Password tetap merupakan kredensial rahasia meskipun permintaan datang dari teman.',
       hint: 'Kredensial tidak menjadi aman hanya karena orang yang meminta adalah teman.' },
 
-    { id: 'R3-08',
+   { id: 'R3-08',
   stimulus: 'Siswa login ke akun belajar menggunakan komputer umum di perpustakaan.',
   question: 'Setelah selesai, tindakan yang paling aman adalah ...',
   options: [
-    'Membiarkan akun tetap login',
-    'Logout dan menghapus data login',
-    'Menulis password di komputer',
-    'Menutup monitor tanpa logout'
+    'Membiarkan akun terbuka agar mudah digunakan kembali',
+    'Logout dari akun dan memastikan password tidak tersimpan',
+    'Menulis password agar mudah diingat saat login lagi',
+    'Menutup layar komputer tanpa keluar dari akun'
   ],
-  key: 1, tags: ['LUPA_LOGOUT', null, 'TULIS_PASSWORD_PERANGKAT', 'LUPA_LOGOUT'],
-  explanation: 'Logout dan memastikan kredensial tidak tersimpan membantu mencegah orang berikutnya mengakses akun.',
-  hint: 'Pikirkan apa yang dapat dilakukan pengguna berikutnya jika akun masih terbuka.'
+  key: 1,
+  tags: ['LUPA_LOGOUT', null, 'TULIS_PASSWORD_PERANGKAT', 'LUPA_LOGOUT'],
+  explanation: 'Logout dan memastikan password tidak tersimpan membantu mencegah pengguna berikutnya mengakses akun.',
+  hint: 'Pastikan pengguna berikutnya tidak bisa membuka akunmu.'
 },
 
 { id: 'R3-09',
   stimulus: 'Siswa menggunakan satu password yang sama untuk email, akun belajar, dan media sosial. Password tersebut kemudian diketahui orang lain.',
   question: 'Apa risiko utama dari kebiasaan tersebut?',
   options: [
-    'Hanya satu akun yang terpengaruh',
-    'Beberapa akun ikut berisiko',
-    'Semua akun menjadi lebih aman',
-    'Tidak ada risiko jika username berbeda'
+    'Hanya akun media sosial yang berisiko diakses orang lain',
+    'Beberapa akun dapat dibobol karena memakai password yang sama',
+    'Semua akun menjadi lebih aman karena mudah diingat',
+    'Akun tetap aman selama setiap username berbeda'
   ],
-  key: 1, tags: ['ABAIKAN_REUSE', null, 'SALAH_REUSE_AMAN', 'ABAIKAN_REUSE'],
-  explanation: 'Penggunaan password yang sama pada banyak akun membuat kompromi satu password dapat berdampak pada beberapa akun.',
-  hint: 'Hubungkan satu password yang sama dengan beberapa akun.'
+  key: 1,
+  tags: ['ABAIKAN_REUSE', null, 'SALAH_REUSE_AMAN', 'ABAIKAN_REUSE'],
+  explanation: 'Password yang sama pada beberapa akun membuat orang lain berpotensi mengakses seluruh akun tersebut jika password diketahui.',
+  hint: 'Bayangkan jika satu password bisa membuka beberapa akun sekaligus.'
 },
 
 { id: 'R3-10',
   stimulus: 'Sebuah link login dikirim melalui pesan. Alamat situs terlihat berbeda dari layanan yang biasa digunakan dan meminta username serta password.',
   question: 'Apa tindakan paling aman?',
   options: [
-    'Memasukkan password untuk menguji',
-    'Membuka layanan dari alamat resmi',
-    'Mengirim link kepada teman untuk dicoba',
-    'Mengganti password setelah login'
+    'Memasukkan password untuk memastikan situs bisa digunakan',
+    'Membuka layanan melalui alamat resmi yang sudah diketahui',
+    'Mengirim link kepada teman untuk memeriksa keamanannya',
+    'Login terlebih dahulu lalu mengganti password setelahnya'
   ],
-  key: 1, tags: ['COBA_DI_PHISHING', null, 'SEBAR_LINK', 'COBA_LALU_GANTI'],
-  explanation: 'Link mencurigakan sebaiknya tidak digunakan untuk login. Akses layanan melalui jalur resmi yang diketahui.',
-  hint: 'Jangan memasukkan kredensial pada halaman yang alamatnya mencurigakan.'
+  key: 1,
+  tags: ['COBA_DI_PHISHING', null, 'SEBAR_LINK', 'COBA_LALU_GANTI'],
+  explanation: 'Alamat situs yang mencurigakan bisa mengarah ke phishing. Gunakan alamat resmi atau aplikasi asli dan jangan memasukkan kredensial pada halaman tersebut.',
+  hint: 'Gunakan jalur resmi untuk mengakses akun belajar.'
 }
   ];
 
