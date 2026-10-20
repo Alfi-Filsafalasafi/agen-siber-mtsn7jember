@@ -1,0 +1,134 @@
+/* Briefing Agen */
+.brief-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: .9rem; }
+.brief-stamp {
+  padding: 3px 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: 1.5px;
+  color: var(--bad);
+  border: 2px solid var(--bad);
+  border-radius: 6px;
+  transform: rotate(-2deg);
+}
+.brief-dots { display: flex; gap: 6px; }
+.brief-dots i { width: 9px; height: 9px; border-radius: 50%; background: #dbe3f2; transition: transform .2s, background .2s; }
+.brief-dots i.on { background: var(--accent); transform: scale(1.3); }
+.brief-dots i.done { background: var(--ok); }
+
+/* Karakter pemandu */
+.guide { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 1rem; }
+.guide-avatar {
+  flex: none;
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.9rem;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(30, 64, 175, .35);
+}
+.guide-bubble {
+  flex: 1;
+  min-height: 96px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px 14px 14px 14px;
+  box-shadow: 0 4px 14px rgba(22, 34, 63, .06);
+}
+.guide-name {
+  margin-bottom: 4px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: .78rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.guide-text { margin: 0; font-weight: 600; line-height: 1.6; }
+
+.brief-body { margin-bottom: 1rem; }
+.brief-nav { display: flex; gap: 10px; }
+.brief-nav .btn { flex: 1; }
+.brief-nav .btn:disabled { opacity: .45; }
+
+/* Kartu identitas agen */
+.id-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  background: linear-gradient(135deg, #f3f7ff, #e6eefc);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(30, 64, 175, .15);
+}
+.id-photo {
+  flex: none;
+  width: 76px; height: 76px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.5rem;
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: 12px;
+}
+.id-info { min-width: 0; }
+.id-label { font-family: var(--font-display); font-weight: 800; font-size: .7rem; letter-spacing: 2px; color: var(--accent); }
+.id-name { font-family: var(--font-head); font-weight: 700; font-size: 1.25rem; line-height: 1.2; word-break: break-word; }
+.id-row { font-size: .88rem; font-weight: 600; color: var(--muted); }
+.id-status { margin-top: 4px; font-size: .8rem; font-weight: 800; color: var(--ok); }
+
+/* Peta ruangan */
+.road { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.road-card {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.road-card .rc-ico { font-size: 1.5rem; line-height: 1.2; }
+.road-card b { font-size: .92rem; }
+.road-card small { font-weight: 700; color: var(--muted); }
+.road-goal {
+  grid-column: 1 / -1;
+  padding: 10px 12px;
+  text-align: center;
+  font-weight: 600;
+  background: var(--accent-soft);
+  border: 1px solid #c9d6fb;
+  border-radius: 12px;
+}
+
+/* Aturan main dan kode etik */
+.rules { margin: 0; padding: 0; list-style: none; }
+.rules li {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 8px; padding: 10px 12px;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.rules .ri { flex: none; font-size: 1.3rem; line-height: 1.3; }
+
+/* Latihan */
+.practice { padding: 14px; background: #f7f9fd; border: 1px dashed var(--line); border-radius: 14px; }
+
+/* Janji kode etik */
+.pledge-check {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 12px; padding: 12px;
+  font-weight: 700;
+  background: var(--accent-soft);
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  cursor: pointer;
+}
+.pledge-check input { flex: none; width: 20px; height: 20px; margin-top: 2px; }
+
+@media (max-width: 576px) {
+  .road { grid-template-columns: 1fr; }
+  .id-photo { width: 64px; height: 64px; font-size: 2.1rem; }
+  .guide-avatar { width: 48px; height: 48px; font-size: 1.6rem; }
+}

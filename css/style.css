@@ -1,0 +1,136 @@
+:root {
+  --bg: #f5f7fb;
+  --panel: #ffffff;
+  --line: #dfe5f0;
+  --ink: #16223f;
+  --muted: #5b6785;
+  --accent: #1e40af;
+  --accent-dark: #1e3a8a;
+  --accent-soft: #eef3ff;
+  --ok: #15803d;
+  --bad: #b91c1c;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-head: "Chakra Petch", "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Orbitron", "Chakra Petch", system-ui, sans-serif;
+}
+
+body {
+  background: linear-gradient(180deg, #fbfcff 0%, #eef2fa 100%) fixed;
+  color: var(--ink);
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+b, strong { font-weight: 700; }
+
+/* Judul: bergaya teknologi/siber */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: .3px;
+}
+h1, .brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+h1 { font-size: clamp(1.9rem, 8vw, 3rem) !important; }
+h4 { text-transform: uppercase; letter-spacing: .8px; }
+.brand { color: var(--accent); font-size: 1rem; white-space: nowrap; }
+#resultScore { font-family: var(--font-display); }
+
+/* Pertanyaan soal memakai font isi supaya mudah dibaca */
+#play-area h5 {
+  font-family: var(--font-body); font-weight: 700; line-height: 1.5;
+  text-transform: none; letter-spacing: 0;
+}
+
+.text-secondary { color: var(--muted) !important; }
+.text-info { color: var(--accent) !important; }
+.text-success { color: var(--ok) !important; }
+.text-warning { color: #b45309 !important; font-weight: 600; }
+
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; background: #ffffff; border-bottom: 1px solid var(--line);
+  box-shadow: 0 2px 10px rgba(22, 34, 63, .05);
+}
+
+.panel {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: 16px; padding: 22px;
+  box-shadow: 0 6px 24px rgba(22, 34, 63, .06);
+}
+
+.form-label { font-weight: 700; }
+.form-control, .form-select {
+  background-color: #fff; border-color: var(--line); color: var(--ink);
+  font-weight: 600; padding: .6rem .8rem;
+}
+.form-control:focus, .form-select:focus {
+  background-color: #fff; color: var(--ink);
+  border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(30, 64, 175, .15);
+}
+.form-text { color: var(--muted); }
+
+/* Tombol utama (kelas btn-info dipakai di HTML/JS, diberi warna aksen) */
+.btn { font-weight: 700; border-radius: 10px; }
+.btn-info {
+  --bs-btn-color: #fff; --bs-btn-bg: var(--accent); --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--accent-dark); --bs-btn-hover-border-color: var(--accent-dark);
+  --bs-btn-active-color: #fff; --bs-btn-active-bg: var(--accent-dark); --bs-btn-active-border-color: var(--accent-dark);
+  --bs-btn-disabled-color: #fff; --bs-btn-disabled-bg: var(--accent); --bs-btn-disabled-border-color: var(--accent);
+}
+.btn-outline-info {
+  --bs-btn-color: var(--accent); --bs-btn-border-color: var(--accent);
+  --bs-btn-hover-color: #fff; --bs-btn-hover-bg: var(--accent); --bs-btn-hover-border-color: var(--accent);
+  --bs-btn-active-color: #fff; --bs-btn-active-bg: var(--accent-dark); --bs-btn-active-border-color: var(--accent-dark);
+  --bs-btn-disabled-color: var(--muted); --bs-btn-disabled-border-color: var(--line);
+}
+.btn-link { color: var(--accent); text-decoration: none; }
+
+.step { height: 100%; transition: transform .15s, box-shadow .15s; }
+.step:not(.locked):hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(22, 34, 63, .10); }
+.step.locked { opacity: .5; }
+.step.done { border-color: var(--ok); background: #f6fcf8; }
+
+.keys .key { font-size: 1.4rem; filter: grayscale(1) opacity(.3); margin-left: 4px; }
+.keys .key.on { filter: none; }
+
+.progress { background: #e3e9f5; }
+.progress-bar { background: var(--accent); transition: width .3s; }
+
+.stimulus { color: var(--muted); line-height: 1.7; font-weight: 600; }
+
+.btn-option {
+  background: #fff; border: 1px solid var(--line); color: var(--ink);
+  padding: 12px 14px; border-radius: 12px; text-align: left; font-weight: 600;
+}
+.btn-option:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.btn-option:disabled { color: var(--ink); opacity: 1; }
+
+/* Opsi yang sedang dipilih (belum dikunci) */
+.btn-option.selected {
+  border-color: var(--accent); background: var(--accent-soft);
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, .25);
+}
+.btn-option.selected::after {
+  content: "✓"; float: right; color: var(--accent); font-weight: 800;
+}
+
+.btn-option.correct { background: #e8f6ed; border-color: var(--ok); }
+.btn-option.wrong { background: #fdeceb; border-color: var(--bad); }
+
+.feedback { border-left: 4px solid var(--accent); padding: 10px 14px; background: var(--accent-soft); border-radius: 8px; }
+.feedback.ok { border-color: var(--ok); background: #f1faf4; }
+.feedback.bad { border-color: var(--bad); background: #fef4f3; }
+
+.alert-info { background: var(--accent-soft); border-color: #c9d6fb; color: var(--ink); font-weight: 600; }
+
+@media (max-width: 576px) {
+  .panel { padding: 16px; }
+  #whoami { display: none; }
+}
